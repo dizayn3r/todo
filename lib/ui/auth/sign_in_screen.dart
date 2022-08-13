@@ -53,17 +53,20 @@ class _SignInScreenState extends State<SignInScreen> {
         key: _formKey,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: FlutterLogo(
+                    size: 300,
+                  ),
+                ),
                 TextFormField(
                   controller: _emailController,
-                  validator: (value) => value!.isEmpty
-                      ? "Email"
-                      : null,
+                  validator: (value) => value!.isEmpty ? "Email" : null,
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.email,
@@ -79,26 +82,23 @@ class _SignInScreenState extends State<SignInScreen> {
                     maxLength: 12,
                     controller: _passwordController,
                     style: Theme.of(context).textTheme.bodyText1,
-                    validator: (value) => value!.length < 6
-                        ? "Password"
-                        : null,
+                    validator: (value) => value!.length < 6 ? "Password" : null,
                     decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.lock,
                           color: Theme.of(context).iconTheme.color,
                         ),
                         labelText: "Password",
-                        border: OutlineInputBorder()),
+                        border: const OutlineInputBorder()),
                   ),
                 ),
                 authProvider.status == Status.Authenticating
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : RaisedButton(
-                        child: Text(
-                          "SignIn",
-                          style: Theme.of(context).textTheme.button,
+                    : ElevatedButton(
+                        child: const Text(
+                          "Sign In",
                         ),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
@@ -111,9 +111,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                     _passwordController.text);
 
                             if (!status) {
-                              _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                                content: Text("SignIn"),
-                              ));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Sign In"),
+                                ),
+                              );
                             } else {
                               Navigator.of(context)
                                   .pushReplacementNamed(Routes.home);
@@ -128,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         padding: const EdgeInsets.only(top: 48),
                         child: Center(
                             child: Text(
-                              "Don't Have Account",
+                          "Don't Have Account",
                           style: Theme.of(context).textTheme.button,
                         )),
                       ),
@@ -136,10 +138,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     ? const Center(
                         child: null,
                       )
-                    : FlatButton(
+                    : TextButton(
                         child: Text(
-                            "Create Account"),
-                        textColor: Theme.of(context).iconTheme.color,
+                          "Create Account",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                         onPressed: () {
                           Navigator.of(context)
                               .pushReplacementNamed(Routes.register);
@@ -157,7 +162,8 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.5,
-        color: Theme.of(context).iconTheme.color,
+        // color: Theme.of(context).iconTheme.color,
+        color: Theme.of(context).primaryColor,
       ),
     );
   }
@@ -170,7 +176,7 @@ class SignInCustomClipper extends CustomClipper<Path> {
     path.lineTo(0, size.height);
 
     var firstEndPoint = Offset(size.width / 2, size.height - 95);
-    var firstControlPoint = Offset(size.width / 6, size.height * 0.45);
+    var firstControlPoint = Offset(size.width / 6, size.height * 0.50);
 
     path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
         firstEndPoint.dx, firstEndPoint.dy);

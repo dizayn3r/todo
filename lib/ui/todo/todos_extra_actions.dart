@@ -23,13 +23,13 @@ class TodosExtraActions extends StatelessWidget {
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<TodosActions>>[
-        PopupMenuItem<TodosActions>(
+        const PopupMenuItem<TodosActions>(
           value: TodosActions.toggleAllComplete,
-          child: Text("todosPopUpToggleAllComplete"),
+          child: Text("Complete"),
         ),
-        PopupMenuItem<TodosActions>(
+        const PopupMenuItem<TodosActions>(
           value: TodosActions.clearCompleted,
-          child: Text("todosPopUpToggleClearCompleted"),
+          child: Text("Clear Completed"),
         ),
       ],
     );

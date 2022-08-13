@@ -27,8 +27,7 @@ class TodosScreen extends StatelessWidget {
           builder: (context, snapshot) {
             final UserModel? user = snapshot.data as UserModel?;
             return Text(
-              user != null ? user.email! : "To do",
-              style: const TextStyle(fontSize: 16),
+             "${user?.email}",
             );
           },
         ),
@@ -84,7 +83,6 @@ class TodosScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Dismissible(
                     background: Container(
-                      color: Colors.red,
                       child: Center(
                           child: Text(
                         "todosDismissibleMsgTxt",

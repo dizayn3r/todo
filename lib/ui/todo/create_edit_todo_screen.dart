@@ -60,13 +60,16 @@ class _CreateEditTodoScreenState extends State<CreateEditTodoScreen> {
                 final firestoreDatabase =
                     Provider.of<FirestoreDatabase>(context, listen: false);
 
-                firestoreDatabase.setTodo(TodoModel(
+                firestoreDatabase.setTodo(
+                  TodoModel(
                     id: _todo?.id ?? documentIdFromCurrentDate(),
                     task: _taskController.text,
                     extraNote: _extraNoteController.text.isNotEmpty
                         ? _extraNoteController.text
                         : "",
-                    complete: _checkboxCompleted));
+                    complete: _checkboxCompleted,
+                  ),
+                );
 
                 Navigator.of(context).pop();
               }
@@ -91,11 +94,10 @@ class _CreateEditTodoScreenState extends State<CreateEditTodoScreen> {
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               TextFormField(
                 controller: _taskController,
@@ -114,7 +116,8 @@ class _CreateEditTodoScreenState extends State<CreateEditTodoScreen> {
                   controller: _extraNoteController,
                   style: Theme.of(context).textTheme.bodyText1,
                   maxLines: 5,
-                  validator: (value) => value!.isEmpty ? "Enter some data" : null,
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter some data" : null,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -134,12 +137,13 @@ class _CreateEditTodoScreenState extends State<CreateEditTodoScreen> {
                   children: <Widget>[
                     Text("Completed"),
                     Checkbox(
-                        value: _checkboxCompleted,
-                        onChanged: (value) {
-                          setState(() {
-                            _checkboxCompleted = value!;
-                          });
-                        },)
+                      value: _checkboxCompleted,
+                      onChanged: (value) {
+                        setState(() {
+                          _checkboxCompleted = value!;
+                        });
+                      },
+                    )
                   ],
                 ),
               )

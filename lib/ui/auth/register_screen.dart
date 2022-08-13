@@ -117,6 +117,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     _passwordController.text);
 
                             if (userModel == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Sign In"),
+                                ),
+                              );
                               _scaffoldKey.currentState!.showSnackBar(SnackBar(
                                 content: Text("Sign In"),
                               ));

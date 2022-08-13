@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo/auth_widget_builder.dart';
-import 'package:todo/constants/app_themes.dart';
 import 'package:todo/models/user_model.dart';
 import 'package:todo/providers/auth_provider.dart';
 import 'package:todo/providers/theme_provider.dart';
@@ -40,13 +39,13 @@ class MyApp extends StatelessWidget {
                       : ThemeMode.light,
                   home: Consumer<AuthProvider>(
                     builder: (_, authProviderRef, __) {
+                      //{context, data, child}
                       if (userSnapshot.connectionState ==
                           ConnectionState.active) {
                         return userSnapshot.hasData
                             ? const HomeScreen()
-                            : SignInScreen();
+                            : const SignInScreen();
                       }
-
                       return const Material(
                         child: CircularProgressIndicator(),
                       );
